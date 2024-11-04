@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "loadData": "node loadData.js",
-    "deleteData": "node deleteData.js"
+    "createDB": "node createDatabase.js"
   },
   "keywords": [],
   "author": "",

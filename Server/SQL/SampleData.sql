@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS `mydb`;
+USE `mydb`;  -- Add this line
+SET FOREIGN_KEY_CHECKS = 0;
+
 INSERT INTO StudenterCanvas (USER_NAME, FIRST_NAME, LAST_NAME) VALUES
 ('jsmith', 'John', 'Smith'),
 ('adoe', 'Alice', 'Doe'),
@@ -181,3 +185,4 @@ INSERT INTO AssignmentGrades (idAssignmentGrades, Stud_ID, Grade, Assignments_id
 (48, 48, 'Inte godkänd', 10, 2),
 (49, 49, 'Godkänd', 10, 2),
 (50, 50, 'Väl godkänd', 10, 2);
+SET FOREIGN_KEY_CHECKS = 1;
