@@ -109,6 +109,66 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Enrollment` (
 ENGINE = InnoDB;
 
 
+
+-- Procedure to get all students in a course as JSON
+CREATE PROCEDURE getStudentsInCourseJson(
+    IN course_id INT
+)
+BEGIN
+    SELECT JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'STUD_ID', s.STUD_ID,
+            'USER_NAME', s.USER_NAME,
+            'FIRST_NAME', s.FIRST_NAME,
+            'LAST_NAME', s.LAST_NAME
+        )
+    ) AS students
+    FROM StudenterCanvas s
+    JOIN Enrollment e ON s.STUD_ID = e.StudenterCanvas_STUD_ID
+    WHERE e.Courses_CourseID = course_id;
+END;
+
+-- Procedure to get all students in a specific assignment with grades as JSON
+CREATE PROCEDURE getStudentsInAssignmentJson(
+    IN p_assignment_id INT,
+    IN p_course_id INT
+)
+BEGIN
+    SELECT JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'StudentID', s.STUD_ID,
+            'UserName', s.USER_NAME,
+            'FirstName', s.FIRST_NAME,
+            'LastName', s.LAST_NAME,
+            'Grade', ag.Grade
+        )
+    ) AS students
+    FROM StudenterCanvas s
+    JOIN AssignmentGrades ag ON s.STUD_ID = ag.Stud_ID
+    WHERE ag.Assignments_idAssignments = p_assignment_id
+      AND ag.Assignments_Courses_CourseID = p_course_id;
+END;
+
+-- Procedure to get all assignments related to a course as JSON
+CREATE PROCEDURE getAssignmentsByCourseJson(
+    IN course_id INT
+)
+BEGIN
+    SELECT JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'AssignmentID', a.idAssignments,
+            'AssignmentName', a.AssignmentName
+        )
+    ) AS assignments
+    FROM Assignments a
+    WHERE a.Courses_CourseID = course_id;
+END;
+
+
+
+
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
