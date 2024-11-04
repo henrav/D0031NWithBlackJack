@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
     res.send('Server is running with sample data.');
 });
 
+//testing
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
