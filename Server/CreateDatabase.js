@@ -4,10 +4,10 @@ require('dotenv').config({ path: '.env' });
 const mysql = require('mysql2');
 const fs = require('fs');
 const path = require('path');
-
+//yooooo
 // databas connection
 const db = mysql.createConnection({
-    host: 'localhost',
+    host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
