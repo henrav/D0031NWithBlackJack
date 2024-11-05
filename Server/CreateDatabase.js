@@ -7,9 +7,10 @@ const path = require('path');
 
 // databas connection
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
+    host: 'localhost',
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
     multipleStatements: true
 });
 
